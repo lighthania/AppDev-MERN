@@ -1,23 +1,55 @@
-import Card from "./components/identityCard";
+import { useState } from "react";
+import AddStudent from "./pages/AddStudent";
+import StudentList from "./pages/StudentList";
+import "./App.css";
+
 function App() {
- return (
- <div className="flex flex-wrap justify-center">
- <Card
- title="React Basics"
- description="Learn how to create components and props."
- image="https://picsum.photos/300/200"
- />
- <Card
- title="Reusable Components"
- description="Build flexible components for scalability."
- image="https://picsum.photos/300/201"
- />
- <Card
- title="Modern UI Development"
- description="Combine React with Tailwind CSS for fast design."
- image="https://picsum.photos/300/202"
- />
- </div>
- );
+  const [students, setStudents] = useState([]);
+
+  const addStudent = (newStudent) => {
+    setStudents((currentStudents) => [
+      ...currentStudents,
+      newStudent
+    ]);
+  };
+
+  return (
+    <div className="app">
+
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <div className="nav-container">
+          <a href="#home" className="nav-link">
+            Home
+          </a>
+
+          <a href="#students" className="nav-link">
+            Student Lists
+          </a>
+
+          <a href="#add-student" className="nav-link">
+            Add Students
+          </a>
+        </div>
+      </nav>
+
+      {/* Home */}
+      <section id="home" className="home-section">
+        <h1>Student Management System</h1>
+      </section>
+
+      {/* Add Student */}
+      <section id="add-student" className="add-section">
+        <AddStudent addStudent={addStudent} />
+      </section>
+
+      {/* Student List */}
+      <section id="students" className="student-section">
+        <StudentList students={students} />
+      </section>
+
+    </div>
+  );
 }
+
 export default App;
